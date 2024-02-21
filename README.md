@@ -1,4 +1,4 @@
-# Niffler is an application for searching public SSH keys in the system.
+# Niffler is an application for finding public SSH keys in the system.
 *Author: Kamil Ciaś, <kamil.cias@goto.systems>*
 
 *GPL-3.0 license*
@@ -12,18 +12,19 @@ Nifflers were looking for hidden treasures. The niffler application searches for
 > The niffler application is invoked from the root user because it requires access to user directories, and when invoked with the --anywhere parameter, to all system files.
 
 ## Installation
-
 To install and run the project, you need to change the file permissions with `chmod +x niffler` and move it to the `/usr/bin/` directory. Here are the commands you need to run:
 
 ```bash
 git clone https://github.com/kamil-cias/niffler
 cd niffler
 chmod +x niffler
+```
+###Elevate permissions
+```bash
 sudo mv niffler /usr/bin/
 ```
 
 ### Using from the root user
-
 ```bash
 niffler
 ```
@@ -35,7 +36,6 @@ niffler --anywhere
 ```
 
 ## Call example
-
 ```bash
 Public SSH key availability report for the host: asgard.home
 Report data: Wed Feb 21 01:45:00 PM CET 2024
@@ -45,3 +45,5 @@ Users           | Home directory       | Shell           | Keys | Key algorithm 
 -----           | --------------       | -----           | ---- | -------------        | ---------                                | ----------                    
 u987891158      | /home/u987891158     | /bin/bash       | 1    | ecdsa-sha2-nistp521  | AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlz | Feb 20 22:17 - 
 ```
+
+

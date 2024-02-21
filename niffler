@@ -13,7 +13,7 @@
 # and checks whether the .ssh/authorized_keys file exists in their home directories,
 # then checks the number of public SSH keys available there, and checks the user's last login. 
 # The application also accepts the --anywhere parameter, which runs a function of the same name.
-# This is time consuming and is intended to search the entire sys.
+# This is time consuming and is intended to search the entire system.
 #
 #
 set -eu
