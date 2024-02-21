@@ -45,8 +45,8 @@ function main() {
     echo ""
 
     # Creating a table header
-    printf "%-15s | %-20s | %-15s | %-4s | %-20s | %-40s | %-30s\n" "Users" "Home directory" "Shell" "Keys" "Key algorithm" "Key start" "Last login"
-    printf "%-15s | %-20s | %-15s | %-4s | %-20s | %-40s | %-30s\n" "-----" "--------------" "-----" "----" "-------------" "---------" "----------"
+    printf "%-15s | %-20s | %-25s | %-4s | %-20s | %-40s | %-30s\n" "Users" "Home directory" "Shell" "Keys" "Key algorithm" "Key start" "Last login"
+    printf "%-15s | %-20s | %-25s | %-4s | %-20s | %-40s | %-30s\n" "-----" "--------------" "-----" "----" "-------------" "---------" "----------"
 
     # Step through each line in /etc/passwd
     while IFS=: read -r user _ _ _ _ home shell
@@ -64,7 +64,7 @@ function main() {
                 key_algorithm=$(echo $key | cut -d ' ' -f 1)
                 key_start=$(echo $key | cut -d ' ' -f 2 | cut -c 1-40)
                 # Displaying results
-                printf "%-15s | %-20s | %-15s | %-4s | %-20s | %-40s | %-30s\n" "$user" "$home" "$shell" "$keys_count" "$key_algorithm" "$key_start" "$last_login"
+                printf "%-15s | %-20s | %-25s | %-4s | %-20s | %-40s | %-30s\n" "$user" "$home" "$shell" "$keys_count" "$key_algorithm" "$key_start" "$last_login"
             done < "$home/.ssh/authorized_keys"
         fi
     done < /etc/passwd
