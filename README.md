@@ -1,4 +1,4 @@
-# Niffler is an application for finding public SSH keys in the system.
+# Niffler, an application for finding SSH public keys on Linux and UNIX.
 *Author: Kamil Ciaś, <kamil.cias@goto.systems>*
 
 *GPL-3.0 license*
@@ -19,7 +19,7 @@ git clone https://github.com/kamil-cias/niffler
 cd niffler
 chmod +x niffler
 ```
-###Elevate permissions
+### Elevate permissions
 ```bash
 sudo mv niffler /usr/bin/
 ```
@@ -35,8 +35,10 @@ or
 niffler --anywhere
 ```
 
-## Call example
+## Example of use
 ```bash
+# niffler
+
 Public SSH key availability report for the host: asgard.home
 Report data: Wed Feb 21 01:45:00 PM CET 2024
 Call the [--anywhere] parameter to search in non-standard locations.
