@@ -1,0 +1,91 @@
+#!/bin/bash
+#
+# Author: Kamil Ciaś
+# Email: kamil.cias@goto.systems
+# License: GPL-3.0
+#
+# This script is distributed under the terms of the GNU General Public License, version 3.0 or later.
+# Details of the license can be found at: https://www.gnu.org/licenses/gpl-3.0.html
+# 
+# Description:
+# The niffler app helps you efficiently find all public SSH keys available on your system.
+# Calling the application starts the main function, which searches for all users in the system
+# and checks whether the .ssh/authorized_keys file exists in their home directories,
+# then checks the number of public SSH keys available there, and checks the user's last login. 
+# The application also accepts the --anywhere parameter, which runs a function of the same name.
+# This is time consuming and is intended to search the entire sys.
+#
+#
+set -eu
+
+function main() {
+    # Variable declaration
+    local hostname
+    local date
+    local user
+    local home
+    local shell
+    local keys_count
+    local last_login
+    local key
+    local key_algorithm
+    local key_start
+
+    # Getting Full Host Name (FQDN)
+    hostname=$(hostname -f)
+
+    # Downloading the current date
+    date=$(date)
+
+    # Display the full host name and date
+    echo ""
+    echo "Public SSH key availability report for the host: $hostname"
+    echo "Report data: $date"
+    echo "Call the [--anywhere] parameter to search in non-standard locations."
+    echo ""
+
+    # Creating a table header
+    printf "%-15s | %-20s | %-15s | %-4s | %-20s | %-40s | %-30s\n" "Users" "Home directory" "Shell" "Keys" "Key algorithm" "Key start" "Last login"
+    printf "%-15s | %-20s | %-15s | %-4s | %-20s | %-40s | %-30s\n" "-----" "--------------" "-----" "----" "-------------" "---------" "----------"
+
+    # Step through each line in /etc/passwd
+    while IFS=: read -r user _ _ _ _ home shell
+    do
+        # Checking if the .ssh/authorized_keys file exists in the user's home directory
+        if [[ -f "$home/.ssh/authorized_keys" ]]; then
+            # Counting the number of keys in a file
+            keys_count=$(wc -l < "$home/.ssh/authorized_keys")
+            # Retrieving the last login
+            last_login=$(last -n 1 $user | head -n 1 | awk '{print $5,$6,$7,$8}')
+            # Going through each key
+            while read -r key
+            do
+                # Extracting the key algorithm and the first few dozen characters of the key
+                key_algorithm=$(echo $key | cut -d ' ' -f 1)
+                key_start=$(echo $key | cut -d ' ' -f 2 | cut -c 1-40)
+                # Displaying results
+                printf "%-15s | %-20s | %-15s | %-4s | %-20s | %-40s | %-30s\n" "$user" "$home" "$shell" "$keys_count" "$key_algorithm" "$key_start" "$last_login"
+            done < "$home/.ssh/authorized_keys"
+        fi
+    done < /etc/passwd
+}
+
+function anywhere() {
+    echo 'The "anywhere" search function will be available soon.'
+}
+
+if [[ $# -eq 0 ]]; then
+    main
+else
+    case "$1" in
+        --anywhere)
+            anywhere
+            ;;
+        *)
+            echo "Unknown argument: $1"
+            echo "Use: $0 [--anywhere]"
+            exit 1
+            ;;
+    esac
+fi
+
