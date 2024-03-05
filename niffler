@@ -52,7 +52,7 @@ function main() {
     while IFS=: read -r user _ _ _ _ home shell
     do
         # Checking if the .ssh/authorized_keys file exists in the user's home directory
-        if [[ -f "$home/.ssh/authorized_keys" ]]; then
+        if [[ -n "$home" && "$home" != "/" && -f "$home/.ssh/authorized_keys" ]]; then
             # Counting the number of keys in a file
             keys_count=$(wc -l < "$home/.ssh/authorized_keys")
             # Retrieving the last login
