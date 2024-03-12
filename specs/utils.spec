@@ -12,10 +12,7 @@ The niffler app helps you efficiently find all public SSH keys available on your
 # we have no source, so nothing here
 
 %build
-cat > hello <<EOF
-#!/usr/bin/bash
-echo "Hello" $HOSTNAME
-EOF
+niffler
 
 %install
 mkdir -p %{buildroot}/usr/bin/
