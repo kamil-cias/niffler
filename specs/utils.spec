@@ -15,8 +15,7 @@ The niffler app helps you efficiently find all public SSH keys available on your
 #
 
 %install
-mkdir -p %{buildroot}/usr/bin/
-cp niffler %{buildroot}/usr/bin/niffler
+
 
 
 %files
