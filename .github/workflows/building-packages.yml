@@ -1,0 +1,30 @@
+
+name: Build and Upload RPM Package
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup RPM build environment
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y rpm
+    - name: Build RPM package
+      run: |
+        rpmbuild -ba specs/utils.spec
+        mkdir -p rpms
+        mv ~/rpmbuild/RPMS/* rpms/
+    - name: Upload RPM package
+      uses: actions/upload-artifact@v4
+      with:
+        name: RPM package
+        path: rpms/
