@@ -19,7 +19,7 @@ EOF
 
 %install
 mkdir -p %{buildroot}/usr/bin/
-install -m 755 hello %{buildroot}/usr/bin/niffler
+install -m 755 niffler %{buildroot}/usr/bin/niffler
 
 %files
 /usr/bin/niffler
