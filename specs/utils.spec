@@ -12,11 +12,12 @@ The niffler app helps you efficiently find all public SSH keys available on your
 # we have no source, so nothing here
 
 %build
-./niffler
+#
 
 %install
 mkdir -p %{buildroot}/usr/bin/
-install -m 755 niffler %{buildroot}/usr/bin/niffler
+cp niffler %{buildroot}/usr/bin/niffler
+
 
 %files
 /usr/bin/niffler
